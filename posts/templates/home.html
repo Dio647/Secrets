@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home | Anonymous Life
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+
+    <h1>🕊 Anonymous Life</h1>
+
+    <p class="hero-subtitle">
+        Every story deserves to be heard.
+    </p>
+
+    <p class="hero-description">
+        Whether you're celebrating, struggling, healing, or reflecting,
+        this is a safe place to share your experiences anonymously.
+    </p>
+
+    <a href="{% url 'create_post' %}" class="hero-button">
+        📝 Tell Your Story
+    </a>
+
+</section>
+
+<section class="daily-prompt">
+
+    <h2>🌤 Today's Prompt</h2>
+
+    <p class="prompt-question">
+        "What is one lesson life has taught you recently?"
+    </p>
+
+    <a href="{% url 'create_post' %}" class="prompt-button">
+        ✍️ Answer Today's Prompt
+    </a>
+
+</section>
+
+<form method="GET" class="search-form">
+
+    <input
+        type="text"
+        name="q"
+        placeholder="🔍 Search stories..."
+        value="{{ query|default:'' }}"
+        class="search-input"
+    >
+
+    <button type="submit" class="search-button">
+        Search
+    </button>
+
+</form>
+<h2 class="feed-title">🔥 Recent Stories</h2>
+
+{% for post in posts %}
+
+<a href="{% url 'post_detail' post.id %}" class="post-link">
+
+    <div class="post">
+
+        <div class="post-header">
+
+            <span class="mood">
+                {{ post.get_mood_display }}
+            </span>
+
+            <small>
+                {{ post.created_at }}
+            </small>
+
+        </div>
+
+        <h2>{{ post.title }}</h2>
+
+        <p>{{ post.content|truncatewords:35 }}</p>
+
+        <small>
+            by {{ post.author }}
+        </small>
+
+    </div>
+
+</a>
+
+{% empty %}
+
+<div class="post">
+    <h2>No stories yet.</h2>
+    <p>Be the first person to share your story.</p>
+</div>
+
+{% endfor %}
+
+{% endblock %}

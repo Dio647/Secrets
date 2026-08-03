@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="post">
+
+    <div class="post-tags">
+        <span class="category">{{ post.get_category_display }}</span>
+        <span class="mood">{{ post.get_mood_display }}</span>
+    </div>
+
+    <h1>{{ post.title }}</h1>
+
+    <p>{{ post.content }}</p>
+
+    <small>
+        {{ post.author }} • {{ post.created_at }}
+    </small>
+
+</div>
+
+<hr>
+
+<h2>💬 Comments</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="create-btn">
+        Post Comment
+    </button>
+
+</form>
+
+<hr>
+
+{% for comment in comments %}
+
+<div class="post">
+
+    <strong>{{ comment.author }}</strong>
+
+    <p>{{ comment.content }}</p>
+
+    <small>{{ comment.created_at }}</small>
+
+</div>
+
+{% empty %}
+
+<p>No comments yet. Be the first to reply! 😊</p>
+
+{% endfor %}
+
+{% endblock %}

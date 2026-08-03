@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Tell Your Story{% endblock %}
+
+{% block content %}
+
+<h2>📝 Tell Your Story</h2>
+
+<p>Every story matters. Share yours anonymously.</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Publish Story
+    </button>
+</form>
+
+{% endblock %}

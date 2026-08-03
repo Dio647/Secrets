@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">📂 Categories</h1>
+
+<div class="categories-grid">
+
+    {% for category in categories %}
+
+<a href="{% url 'category_posts' category.slug %}" class="category-card">
+
+    <h2>{{ category.icon }} {{ category.name }}</h2>
+
+    <p>{{ category.description }}</p>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

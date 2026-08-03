@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ category }} | Anonymous Life
+{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">{{ category }}</h1>
+
+<p style="text-align:center; color:#666;">
+    {{ posts|length }} stor{{ posts|length|pluralize:"y,ies" }}
+</p>
+
+{% for post in posts %}
+
+<a href="{% url 'post_detail' post.id %}" style="text-decoration:none;color:inherit;">
+
+<div class="post">
+
+    <div class="post-tags">
+        <span class="category">{{ post.get_category_display }}</span>
+        <span class="mood">{{ post.get_mood_display }}</span>
+    </div>
+
+    <h2>{{ post.title }}</h2>
+
+    <p>{{ post.content }}</p>
+
+    <small>
+        {{ post.author }} • {{ post.created_at }}
+    </small>
+
+</div>
+
+</a>
+
+{% empty %}
+
+<div class="post">
+    <h2>No stories yet 📭</h2>
+    <p>Be the first person to share a story in this category!</p>
+</div>
+
+{% endfor %}
+
+{% endblock %}
